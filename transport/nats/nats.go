@@ -21,3 +21,7 @@ type Server struct {
 	reply   string
 	handler transport.MsgHandler
 }
+
+type Request interface {
+	Send(c *Client)
+}
