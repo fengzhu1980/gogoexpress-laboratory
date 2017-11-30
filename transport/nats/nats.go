@@ -11,17 +11,27 @@ type Connection struct {
 	conn  *gonats.Conn
 }
 
-type Client struct {
+type Request struct {
 	sub     string
 	payload []byte
 	timeout int
 }
 
-type Server struct {
-	reply   string
+type Response struct {
+	msg     *gonats.Msg
 	handler transport.MsgHandler
 }
 
-type Request interface {
-	Send(c *Client)
+type Client interface {
+	Send(req *Request)
+}
+
+type Server interface {
+	Handle(res *Response)
+}
+
+func Listen(c *Connection, sub string) {
+	c.conn.Subscribe(sub, func(msg *gonats.Msg) {
+
+	})
 }
